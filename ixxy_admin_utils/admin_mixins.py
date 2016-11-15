@@ -138,7 +138,7 @@ class AutocompleteMixin(object):
         form_field = super(AutocompleteMixin, self).formfield_for_manytomany(
             db_field,
             request,
-            **kwargs,
+            **kwargs
         )
         if isinstance(form_field.widget, ModelSelect2Multiple):
             unwanted_msg = _('Hold down "Control", or "Command" on a Mac, to select more than one.')
