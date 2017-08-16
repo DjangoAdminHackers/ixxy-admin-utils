@@ -65,17 +65,24 @@ def makeRangeFieldListFilter(lookups, nullable=False):
                 # If we pass in a timedelta then assume we want date filtering
                 # relative to now
                 # TODO This only supports date not datetime
+                is_date_based = False
                 if isinstance(start, datetime.timedelta):
                     start = timezone.now() + start
+                    is_date_based = True
                 if isinstance(stop, datetime.timedelta):
                     stop = timezone.now() + stop
+                    is_date_based = True
                 
                 query_params = {}
-                
+
+                if is_date_based:
+                    start = str(start.date())
+                    stop = str(stop.date())
+
                 if start is not None:
-                    query_params[self.lookup_kwarg_start] = str(start.date())
+                    query_params[self.lookup_kwarg_start] = start
                 if stop is not None:
-                    query_params[self.lookup_kwarg_stop] = str(stop.date())
+                    query_params[self.lookup_kwarg_stop] = stop
                 
                 self.links.append((name, query_params))
             
