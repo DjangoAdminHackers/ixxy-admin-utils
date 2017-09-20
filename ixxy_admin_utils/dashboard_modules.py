@@ -44,5 +44,5 @@ linkcheck_perm_checking_dashboard_module = PermCheckingLinkList(
         {'title': 'Untested links', 'url': reverse('linkcheck_report') + '?filters=show_unchecked'},
         {'title': 'Ignored links', 'url': reverse('linkcheck_report') + '?filters=ignored'},
     ),
-    required_perms=['linkcheck.can_change_link'],
+    required_perms=['linkcheck.change_link'],
 )
