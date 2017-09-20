@@ -12,7 +12,8 @@ class PermCheckingLinkList(LinkList):
     def init_with_context(self, context):
         super(PermCheckingLinkList, self).init_with_context(context)
         if self.required_perms:
-            if not context['request'].user.has_perms(self.required_perms):
+            user = context['request'].user
+            if not user.is_superuser and not user.has_perms(self.required_perms):
                 self.children = None
                 self.pre_content = None
                 self.post_content = None
@@ -27,7 +28,8 @@ class GroupCheckingLinkList(LinkList):
     def init_with_context(self, context):
         super(GroupCheckingLinkList, self).init_with_context(context)
         if self.required_group:
-            if not context['request'].user.groups.filter(name=self.required_group):
+            user = context['request'].user
+            if not user.is_superuser and not context['request'].user.groups.filter(name=self.required_group):
                 self.children = None
                 self.pre_content = None
                 self.post_content = None
