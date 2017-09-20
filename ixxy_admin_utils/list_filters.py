@@ -74,10 +74,12 @@ def makeRangeFieldListFilter(lookups, nullable=False):
                     is_date_based = True
                 
                 query_params = {}
-
+                
                 if is_date_based:
-                    start = str(start.date())
-                    stop = str(stop.date())
+                    if start is not None:
+                        start = str(start.date())
+                    if stop is not None:
+                        stop = str(stop.date())
 
                 if start is not None:
                     query_params[self.lookup_kwarg_start] = start
