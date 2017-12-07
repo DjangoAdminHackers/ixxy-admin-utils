@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 
-def makeRangeFieldListFilter(lookups, nullable=False):
+def makeRangeFieldListFilter(lookups, nullable=False, title=None):
     
     """Mostly based on https://djangosnippets.org/snippets/2779/
     
@@ -46,7 +46,7 @@ def makeRangeFieldListFilter(lookups, nullable=False):
     
     class RangeFieldListFilter(FieldListFilter):
         
-        def __init__(self, field, request, params, model, model_admin, field_path):
+        def __init__(self, field, request, params, model, model_admin, field_path, title=title):
             
             self.field_generic = '%s__' % field_path
             self.range_params = dict(
@@ -101,6 +101,10 @@ def makeRangeFieldListFilter(lookups, nullable=False):
                 model_admin,
                 field_path,
             )
+
+            # Allow a custom title
+            if title is not None:
+                self.title = title
         
         def expected_parameters(self):
             return [
