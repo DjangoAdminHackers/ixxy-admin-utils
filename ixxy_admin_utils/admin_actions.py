@@ -1,9 +1,7 @@
-from django.http import HttpResponse
-from import_export.formats import base_formats
-
-
 def xlsx_export_action(modeladmin, request, queryset):
 
+    from django.http import HttpResponse
+    from import_export.formats import base_formats
     formats = modeladmin.get_export_formats()
     file_format = base_formats.XLSX()
 
