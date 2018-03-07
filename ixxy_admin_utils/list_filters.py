@@ -4,6 +4,19 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 
+def custom_field_list_filter(title=None):
+
+    # Allow overriding of
+    # ('events__type', custom_field_list_filter(title='event type')),
+
+    class Wrapper(FieldListFilter):
+        def __new__(cls, *args, **kwargs):
+            instance = FieldListFilter.create(*args, **kwargs)
+            instance.title = title or instance.title
+            return instance
+    return Wrapper
+
+
 def makeRangeFieldListFilter(lookups, nullable=False, title=None):
     
     """Mostly based on https://djangosnippets.org/snippets/2779/
