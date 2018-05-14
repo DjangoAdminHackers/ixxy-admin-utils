@@ -1,5 +1,5 @@
 import datetime
-from django.contrib.admin import SimpleListFilter, FieldListFilter
+from django.contrib.admin import FieldListFilter, DateFieldListFilter
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
@@ -135,3 +135,24 @@ def makeRangeFieldListFilter(lookups, nullable=False, title=None):
                 }
     
     return RangeFieldListFilter
+
+
+class DateFieldListFilterOrNull(DateFieldListFilter):
+    # TODO this class won't be necessary in django >= 1.11
+    def __init__(self, field, request, params, model, model_admin, field_path):
+        self.lookup_kwarg_isnull = '%s__isnull' % (field_path, )
+        super(DateFieldListFilterOrNull, self).__init__(field, request, params, model, model_admin, field_path)
+        # 'Any date' is poor wording for an empty query, replace it with 'All items'
+        self.links = ((_('All items'), {}),) + self.links[1:]
+        # Add filters for _isnull
+        self.links = self.links + (
+           (_('No date'), {
+                self.lookup_kwarg_isnull: 'True',
+            }),
+           (_('Has date'), {
+                self.lookup_kwarg_isnull: 'False',
+            }),
+           )
+
+    def expected_parameters(self):
+        return super(DateFieldListFilterOrNull, self).expected_parameters() + [self.lookup_kwarg_isnull, ]
