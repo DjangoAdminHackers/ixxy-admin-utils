@@ -63,7 +63,7 @@ def makeRangeFieldListFilter(lookups, nullable=False, title=None):
             
             self.field_generic = '%s__' % field_path
             self.range_params = dict(
-                [(k, v) for k, v in params.items()
+                [(k, v) for k, v in list(params.items())
                     if k.startswith(self.field_generic)]
             )
             

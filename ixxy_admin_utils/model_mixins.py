@@ -44,12 +44,12 @@ class AdminUrlMixin(object):
         return cls._get_admin_url('add')
 
     def view_link(self):
-        return mark_safe(u'<a href="{}" style="white-space: nowrap">View</a>'.format(self.get_absolute_url()))
+        return mark_safe('<a href="{}" style="white-space: nowrap">View</a>'.format(self.get_absolute_url()))
     view_link.allow_tags = True
     view_link.short_description = ''
 
     def change_link(self, link_text='Edit', redirect=None):
         redirect_param = '?_redirect={}'.format(redirect) if redirect else ''
-        return mark_safe(u'<a href="{}{}" class="changelink">{}</a>'.format(self.changeform_url, redirect_param, link_text))
+        return mark_safe('<a href="{}{}" class="changelink">{}</a>'.format(self.changeform_url, redirect_param, link_text))
     change_link.allow_tags = True
     change_link.short_description = ''

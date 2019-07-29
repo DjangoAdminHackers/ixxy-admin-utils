@@ -65,7 +65,7 @@ class HideAddRelatedMixin(object):
     def get_form(self, request, obj=None, **kwargs):
         form = super(HideAddRelatedMixin, self).get_form(request, obj, **kwargs)
         if getattr(self, 'show_add_related_fields', None) is not None:
-            for field in form.base_fields.keys():
+            for field in list(form.base_fields.keys()):
                 if field not in self.show_add_related_fields:
                     form.base_fields[field].widget.can_add_related = False
         else:
