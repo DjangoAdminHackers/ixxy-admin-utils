@@ -157,6 +157,7 @@ class BooleanTimeStampMixin(object):
             kwargs['form_class'] = BooleanTimeStampFormField
             kwargs['widget'] = BooleanTimeStampWidget(label=db_field.verbose_name.title())
             kwargs['label'] = ''
-            kwargs.pop('request')
+            request = kwargs.pop('request')
             db_field.formfield(**kwargs)
+            kwargs['request'] = request
         return super(BooleanTimeStampMixin, self).formfield_for_dbfield(db_field, **kwargs)
