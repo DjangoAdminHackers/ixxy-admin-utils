@@ -1,5 +1,5 @@
 from admin_tools.dashboard.modules import LinkList
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from linkcheck.views import get_status_message
 
 
