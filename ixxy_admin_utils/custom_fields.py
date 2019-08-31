@@ -11,7 +11,7 @@ class BooleanTimeStampWidget(forms.CheckboxInput):
         self.label = label
         super(BooleanTimeStampWidget, self).__init__(attrs, check_test)
     
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         widget_html = super(BooleanTimeStampWidget, self).render(name, value, attrs)
         
         # If there are validation errors - then value will still be a boolean
