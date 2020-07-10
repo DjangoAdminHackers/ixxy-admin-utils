@@ -1,6 +1,9 @@
 from django.http import HttpResponseRedirect
+from django import forms
 from django.contrib.contenttypes.models import ContentType
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
+
 from .custom_fields import (
     BooleanTimeStampField,
     BooleanTimeStampFormField,
@@ -97,20 +100,22 @@ class LongListFilterMixin(object):
         threshold = getattr(self, 'long_list_filter_threshold', '300')
         height = getattr(self, 'long_list_filter_height', '100')
         
-        media = super(LongListFilterMixin, self).media
-        media.add_js([
+        default_media = super(LongListFilterMixin, self).media
+        
+        js = default_media._js + [
             '{}jqueryui/1.11.4/jquery-ui.min.js'.format(cdn_base),
-            'js/ixxy_admin_utils/long_list_filter.js?show={}&threshold={}&height={}'.format(
+            mark_safe('js/ixxy_admin_utils/long_list_filter.js?show={}&threshold={}&height={}'.format(
                 show,
                 threshold,
                 height,
-            ),
-        ])
-        media.add_css({
+            )),
+        ]
+        css = {
             'all': [
                 '{}jqueryui/1.11.4/themes/smoothness/jquery-ui.css'.format(cdn_base)
             ]
-        })
+        }
+        media = forms.Media(js=js, css=css)
         return media
 
 
