@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django import forms
 from django.contrib.contenttypes.models import ContentType
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext_lazy as _
 
 from .custom_fields import (
     BooleanTimeStampField,
