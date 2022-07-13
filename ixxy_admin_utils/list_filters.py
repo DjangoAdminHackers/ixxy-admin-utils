@@ -1,7 +1,7 @@
 import datetime
 from django.contrib.admin import FieldListFilter, DateFieldListFilter
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 def custom_field_list_filter(title=None):
