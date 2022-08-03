@@ -111,7 +111,7 @@ class LongListFilterMixin(object):
             )),
         ]
         css = {
-            'all': [
+            'all': default_media._css.get('all', []) + [
                 '{}jqueryui/1.11.4/themes/smoothness/jquery-ui.css'.format(cdn_base)
             ]
         }
@@ -146,7 +146,7 @@ class AutocompleteMixin(object):
             **kwargs
         )
         if isinstance(form_field.widget, ModelSelect2Multiple):
-            unwanted_msg = _('Hold down "Control", or "Command" on a Mac, to select more than one.')
+            unwanted_msg = 'Hold down "Control", or "Command" on a Mac, to select more than one.'
             form_field.help_text = form_field.help_text.replace(unwanted_msg, '')
         return form_field
 
