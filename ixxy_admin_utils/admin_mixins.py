@@ -103,7 +103,7 @@ class LongListFilterMixin(object):
         default_media = super(LongListFilterMixin, self).media
         
         js = default_media._js + [
-            '{}jqueryui/1.11.4/jquery-ui.min.js'.format(cdn_base),
+            '{}jqueryui/1.13.2/jquery-ui.min.js'.format(cdn_base),
             mark_safe('js/ixxy_admin_utils/long_list_filter.js?show={}&threshold={}&height={}'.format(
                 show,
                 threshold,
@@ -112,7 +112,7 @@ class LongListFilterMixin(object):
         ]
         css = {
             'all': default_media._css.get('all', []) + [
-                '{}jqueryui/1.11.4/themes/smoothness/jquery-ui.css'.format(cdn_base)
+                '{}jqueryui/1.13.2/themes/smoothness/jquery-ui.css'.format(cdn_base)
             ]
         }
         media = forms.Media(js=js, css=css)
