@@ -1,4 +1,3 @@
-from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse, NoReverseMatch
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
@@ -19,6 +18,7 @@ class AdminUrlMixin(object):
     
     @classmethod
     def _get_admin_url(cls, admin_url_name, args=None):
+        from django.contrib.contenttypes.models import ContentType
         content_type = ContentType.objects.get_for_model(cls, for_concrete_model=False)
         try:
             return cls._get_admin_url_for_content_type(content_type, admin_url_name, args)
