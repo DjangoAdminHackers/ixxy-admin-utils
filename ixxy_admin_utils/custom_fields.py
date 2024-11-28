@@ -17,7 +17,7 @@ class BooleanTimeStampWidget(forms.CheckboxInput):
         # If there are validation errors - then value will still be a boolean
         # So you can't just check for truthiness
         # We're looking for a non-null datetime
-        if value is not None and value is not True:
+        if value is not None and value is not True and value is not False:
             html = '{}<span class="vCheckboxLabel">{}: {}</span>'.format(
                 widget_html,
                 self.label,
