@@ -2,12 +2,14 @@ from admin_tools.dashboard.modules import LinkList
 from django.urls import reverse
 from linkcheck.views import get_status_message
 
-
 class PermCheckingLinkList(LinkList):
 
     def __init__(self, title=None, **kwargs):
         self.required_perms = kwargs.pop('required_perms', [])
         super(PermCheckingLinkList, self).__init__(title, **kwargs)
+        self._children = self.children
+        self._pre_content = self.pre_content
+        self._post_content = self.post_content
 
     def init_with_context(self, context):
         super(PermCheckingLinkList, self).init_with_context(context)
@@ -17,6 +19,10 @@ class PermCheckingLinkList(LinkList):
                 self.children = None
                 self.pre_content = None
                 self.post_content = None
+            else:
+                self.children = self._children
+                self.pre_content = self._pre_content
+                self.post_content = self._post_content
 
 
 class GroupCheckingLinkList(LinkList):
